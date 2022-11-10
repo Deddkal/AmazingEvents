@@ -17,7 +17,7 @@ function CrearCheckBox (lista){
   div.classList.add("form-check")
   div.innerHTML = `
   <label class="form-check-label">
-  <input class="form-check-input" type="checkbox" value="${lista}">
+  <input class="form-check-input" type="checkbox" title="${lista}" value="${lista}">
   ${lista}
   </label>`
   fragmento.appendChild(div)
@@ -32,7 +32,7 @@ function crearTarjetas (info){
   const card = document.createElement('section')
   card.classList.add('conteiner_card')
   card.innerHTML =`
-    <img src="${info.image}" class="card-img-top" alt="Imagen Evento">
+    <img src="${info.image}" class="card-img-top" alt="${info.name}" title="${info.category}">
     <div class="card_body">
     <h5 class="card-title">${info.name}</h5>
     <p class="card-text">${info.description}</p>
@@ -46,7 +46,7 @@ function crearTarjetas (info){
 function nuevaTarjeta (info){
   conteiner_cards.innerHTML = ''
   if (info.length == 0){
-    conteiner_cards.innerHTML = `<h2 class="text-bg-danger p-3"> No hay eventos en su busqueda</h2>`
+    conteiner_cards.innerHTML = `<h2 class="text-bg-danger p-3">There are no results for your search</h2>`
   }else{
   info.forEach((element) => crearTarjetas(element))
   conteiner_cards.appendChild(fragmento)

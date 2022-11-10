@@ -13,7 +13,7 @@ function creartarjeta (tarjeta){
     card.classList.add('conteiner_details', 'bg-dark')
     
     card.innerHTML = `
-    <img src="${tarjeta.image}" class="details_img" alt="Imagen Evento">
+    <img src="${tarjeta.image}" class="details_img" alt="${tarjeta.name}" title="${tarjeta.category}">
     <div class="details_body">
     <h3 class="details_name">${tarjeta.name}</h3>
     <p class="details_info">${tarjeta.description}</p>
