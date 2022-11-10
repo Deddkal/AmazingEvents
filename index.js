@@ -1,17 +1,11 @@
-
 const $form = document.getElementById("form")
 const $check= document.getElementById("check_conteiner")
 const conteiner_cards = document.querySelector('.conteiner_cards')
 const datos =  data.events;
-
-
-
-
 let categoriasFiltradas = datos.map( element => element.category)
 let setcategorias = new Set (categoriasFiltradas)
 let categoryCheck = Array.from(setcategorias)
 let fragmento = new DocumentFragment() ;
-
 function CrearCheckBox (lista){
   let div = document.createElement('div')
   div.classList.add("form-check")
@@ -22,12 +16,10 @@ function CrearCheckBox (lista){
   </label>`
   fragmento.appendChild(div)
 }
-
 categoryCheck.forEach( element => {
   CrearCheckBox (element)
 })
 $check.appendChild(fragmento)
-
 function crearTarjetas (info){
   const card = document.createElement('section')
   card.classList.add('conteiner_card')
@@ -52,7 +44,6 @@ function nuevaTarjeta (info){
   conteiner_cards.appendChild(fragmento)
 }
 }
-
 let checked = []
 let searchBar = $form[7].value
 nuevaTarjeta (datos);
@@ -71,7 +62,6 @@ $form.addEventListener("change", (e) => {
   nuevaTarjeta(datosfiltrado)
   return checked
 })
-
 function filtradoCheck(info, filtrar){
   let datosFiltrado = []
   if ((filtrar.length) != 0){ 
@@ -80,7 +70,6 @@ function filtradoCheck(info, filtrar){
     return datosFiltrado = info
   }
 }
-
 function filtrarSearchBar (info, filtrar){
   let datoFiltrado = []
     if (filtrar != ''){
@@ -89,6 +78,3 @@ function filtrarSearchBar (info, filtrar){
     return datoFiltrado = info
   }
 }
-
-
-
