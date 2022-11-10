@@ -81,7 +81,7 @@ function filtradoCheck(info, filtrar){
 function filtrarSearchBar (info, filtrar){
   let datoFiltrado = []
     if (filtrar != ''){
-     return datoFiltrado = info.filter ( element => element.name.toLowerCase().includes(filtrar.toLowerCase()))
+     return datoFiltrado = info.filter ( element => element.name.toLowerCase().includes(filtrar.toLowerCase()) || element.description.toLowerCase().includes(filtrar.toLowerCase()))
   }else{
     return datoFiltrado = info
   }
