@@ -1,9 +1,18 @@
-const datosDetails =  data.events;
-const queryString = location.search;
-console.log("hola")
-const params = new URLSearchParams(queryString);
-const id = params.get("id");
-const evento = datosDetails.find((eventos) => eventos._id == id);
+fetch('https://amazing-events.herokuapp.com/api/events')
+.then(response => response.json())
+.then((response) => {
+    datosDetails = response.events
+    evento = datosDetails.find((eventos) => eventos._id == id);
+    creartarjeta(evento)
+    conteiner_cards.appendChild(fragmento)
+})
+.catch(negative => conteiner_cards.innerHTML = `<h2 class="text-bg-danger p-4">The site is under maintenance</h2>`)
+
+let datosDetails;
+let queryString = location.search;
+let params = new URLSearchParams(queryString);
+let id = params.get("id");
+let evento;
 
 const conteiner_cards = document.querySelector('.conteiner_cards')
 const fragmento = new DocumentFragment() ;
@@ -25,12 +34,10 @@ function creartarjeta (tarjeta){
     <h5>$${tarjeta.price}</h5>
     </div>`
     fragmento.appendChild(card)
-    console.log(tarjeta)      
 }
-console.log(evento)
-creartarjeta(evento)
 
-conteiner_cards.appendChild(fragmento)
+
+
 
 
 

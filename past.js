@@ -1,30 +1,46 @@
 
+fetch('https://amazing-events.herokuapp.com/api/events')
+.then(response => response.json())
+.then((response) => {
+  let objeto =  response;
+  datosPast = objeto.events
+  datos= datosPast.filter( element => element.date < response.currentDate)
+  categoriasFiltradas = datos.map( element => element.category)
+  setcategorias = new Set (categoriasFiltradas)
+  categoryCheck = Array.from(setcategorias)
+  categoryCheck.forEach( element => CrearCheckBox (element))
+  $check.appendChild(fragmento)
+  nuevaTarjeta (datos);
+  
+  $form.addEventListener("keyup", (e) =>{
+    nuevaTarjeta(filtrarSearchBar (filtradoCheck(datos)))
+  }
+  )
+  $form.addEventListener("change", (e) => {
+    nuevaTarjeta(filtrarSearchBar (filtradoCheck(datos)))
+  })
+})
+.catch(negative => conteiner_cards.innerHTML = `<h2 class="text-bg-danger p-4">The site is under maintenance</h2>`)
+let datos = []
+const $buscador = document.getElementById('buscador')
 const $form = document.getElementById("form")
 const $check= document.getElementById("check_conteiner")
-const datos =  data.events;
 const conteiner_cards = document.querySelector('.conteiner_cards')
-let categoriasFiltradas = datos.map( element => element.category)
-let setcategorias = new Set (categoriasFiltradas)
-let categoryCheck = Array.from(setcategorias)
+
+let categoriasFiltradas
+let setcategorias
+let categoryCheck
 let fragmento = new DocumentFragment() ;
-
-datosPast= datos.filter( element => element.date < data.currentDate)
-
 function CrearCheckBox (lista){
   let div = document.createElement('div')
   div.classList.add("form-check")
   div.innerHTML = `
   <label class="form-check-label">
-  <input class="form-check-input" type="checkbox" value="${lista}">
+  <input class="form-check-input" type="checkbox" title="${lista}" value="${lista}">
   ${lista}
   </label>`
   fragmento.appendChild(div)
 }
-
-categoryCheck.forEach( element => {
-  CrearCheckBox (element)
-})
-$check.appendChild(fragmento)
 
 function crearTarjetas (info){
   const card = document.createElement('section')
@@ -50,41 +66,24 @@ function nuevaTarjeta (info){
   conteiner_cards.appendChild(fragmento)
 }
 }
-
 let checked = []
-let searchBar = $form[7].value
-nuevaTarjeta (datosPast);
 $form.addEventListener("submit", (e) => e.preventDefault() )
-$form.addEventListener("keyup", (e) =>{
-  searchBar = $form[7].value
-  datosfiltrado = filtrarSearchBar (filtradoCheck(datosPast, checked), searchBar)
-  nuevaTarjeta(datosfiltrado)
-  return searchBar
-}
-)
-$form.addEventListener("change", (e) => {
+
+function filtradoCheck(info){
   let checkedBtn = Array.from($form.querySelectorAll(`input[type="checkbox"]:checked`))
   checked = checkedBtn.map(element => element.value)
-  datosfiltrado = filtrarSearchBar (filtradoCheck(datosPast, checked), searchBar)
-  nuevaTarjeta(datosfiltrado)
-  return checked
-})
-
-function filtradoCheck(info, filtrar){
-  let datosFiltrado = []
-  if ((filtrar.length) != 0){ 
-   return datosFiltrado = info.filter( element => filtrar.includes(element.category))
+  
+  if ((checked.length) != 0){ 
+   return info.filter( element => checked.includes(element.category))
   }else{
-    return datosFiltrado = info
+    return info
   }
 }
-
-function filtrarSearchBar (info, filtrar){
-  let datoFiltrado = []
-    if (filtrar != ''){
-     return datoFiltrado = info.filter (element => element.name.toLowerCase().includes(filtrar.toLowerCase()) || element.description.toLowerCase().includes(filtrar.toLowerCase()))
+function filtrarSearchBar (info){
+  let searchBar = $buscador.value
+    if (searchBar != ''){
+     return info.filter(element => element.name.toLowerCase().includes(searchBar.toLowerCase()) || element.description.toLowerCase().includes(searchBar.toLowerCase()))
   }else{
-    return datoFiltrado = info
+    return info
   }
 }
-
