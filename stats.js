@@ -84,8 +84,9 @@ function crearTablaFuturo(array){
         <th class="tg-0lax fs-3">Revenue</th>
         <th class="tg-0lax fs-3">Percentage of attendance</th>
     </tr>
+    </thead>
     `
-	array.forEach(element => listaCategorias(element, "estimate"))
+	array.forEach(element => listaCategorias(element))
     lineaTabla.appendChild(fragTemporal)
     fragmento.appendChild(lineaTabla)
 }
@@ -165,19 +166,19 @@ function nuevoObjeto(elemento){
 let pruebacategorias =[]
 
 function objetoCategoria (){
-   	categoriasUncoming.map( evento => { return gananciaComing.push({
+   	categoriasUncoming.map( evento =>gananciaComing.push({
 		nombre: evento,
 		revenue: datosComing.filter(e => e.category == evento).map(e => e.revenue).reduce((actual,total) => actual+=total), 
 		estimate: datosComing.filter(e => e.category == evento).map(e => parseInt(e.estimate)).reduce((actual,total) => actual+=total),
 		capacity : datosComing.filter(e => e.category == evento).map(e => parseInt(e.capacity)).reduce((actual,total) => actual+=total)  
-	})})
+	}))
 }
 
 function objetoCategoriaPast (){
-	categoriasPast.map( evento => { return gananciasPast.push({
+	categoriasPast.map( evento => gananciasPast.push({
 	 nombre: evento,
 	 revenue: datosPast.filter(e => e.category == evento).map(e => e.revenue).reduce((actual,total) => actual+=total), 
 	 assistance: datosPast.filter(e => e.category == evento).map(e => parseInt(e.assistance)).reduce((actual,total) => actual+=total),
 	 capacity : datosPast.filter(e => e.category == evento).map(e => parseInt(e.capacity)).reduce((actual,total) => actual+=total)  
- })})
+ }))
 }
